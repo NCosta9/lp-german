@@ -1,3 +1,5 @@
+import tractorCutoutImage from '../assets/maquinas/satlight-linha-verde-trator.png';
+
 const pains = [
   {
     icon: (
@@ -39,8 +41,20 @@ const pains = [
 
 export default function PainSection() {
   return (
-    <section className="py-20 bg-neutral-50">
-      <div className="max-w-7xl mx-auto px-6">
+    <section className="relative py-20 bg-neutral-50 overflow-hidden">
+      <img
+        src={tractorCutoutImage}
+        alt="Trator"
+        data-aos="zoom-in"
+        data-aos-duration="900"
+        data-aos-anchor-placement="top-bottom"
+        className="hidden md:block pointer-events-none select-none absolute top-16 -left-10 w-[360px] lg:w-[520px] opacity-95 drop-shadow-[0_30px_55px_rgba(0,0,0,0.22)]"
+        style={{
+          transform: 'perspective(1100px) rotateY(14deg)',
+          transformOrigin: 'left center',
+        }}
+      />
+      <div className="relative z-10 max-w-7xl mx-auto px-6">
         <div className="text-center mb-14" data-aos="fade-up">
           <span className="text-[#c9a84c] text-sm font-bold tracking-widest uppercase mb-3 block">
             O Problema

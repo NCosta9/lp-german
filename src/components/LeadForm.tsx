@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import logoHorizontal from '../assets/logo/logo-horizontal.png';
+import bulldozerImage from '../assets/maquinas/—Pngtree—powerful bulldozers in action heavy_20551952.png';
 
 const WEBHOOK_URL = 'https://n8n.promovaonline.com.br/webhook/leads-rd-german';
 
@@ -131,7 +132,19 @@ export default function LeadForm() {
   const progress = ((currentStep) / steps.length) * 100;
 
   return (
-    <section id="lead-form" className="py-20 bg-neutral-50">
+    <section id="lead-form" className="relative py-20 bg-neutral-50 overflow-hidden">
+      <img
+        src={bulldozerImage}
+        alt="Bulldozers em ação"
+        data-aos="zoom-in"
+        data-aos-duration="900"
+        data-aos-anchor-placement="top-bottom"
+        className="hidden md:block pointer-events-none select-none absolute inset-y-0 right-0 h-full w-auto opacity-95 drop-shadow-[0_30px_55px_rgba(0,0,0,0.22)]"
+        style={{
+          transform: 'perspective(1100px) rotateY(-18deg) translateX(18%)',
+          transformOrigin: 'right top',
+        }}
+      />
       <div className="max-w-2xl mx-auto px-6">
         <img
           src={logoHorizontal}

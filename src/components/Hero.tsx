@@ -73,11 +73,11 @@ export default function Hero() {
           <div
             data-aos="fade-down"
             data-aos-duration="600"
-            className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-[#c9a84c]/40 rounded-full px-4 py-1.5 mb-6"
+            className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-[#c9a84c]/40 rounded-full px-4 py-1.5 mb-6 mt-15"
           >
             <span className="w-2 h-2 rounded-full bg-[#c9a84c] animate-pulse" />
             <span className="text-[#c9a84c] text-xs font-semibold tracking-widest uppercase">
-              Investimento Internacional
+              Para brasileiros no exterior
             </span>
           </div>
 
