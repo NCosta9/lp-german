@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import AOS from 'aos';
+import heroMachineryImage from '../assets/hero-machinery.webp';
 
 const highlights = [
   {
@@ -53,7 +54,7 @@ export default function Hero() {
     <section className="relative min-h-screen flex items-center overflow-hidden">
       <div className="absolute inset-0">
         <img
-          src="/hero-machinery.webp"
+          src={heroMachineryImage}
           alt="Maquinário agrícola em operação"
           className="w-full h-full object-cover object-center"
         />

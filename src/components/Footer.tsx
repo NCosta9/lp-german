@@ -1,18 +1,16 @@
+import logoHorizontal from '../assets/logo/logo-horizontal.png';
+
 export default function Footer() {
   return (
     <footer className="bg-[#0a1f13] text-white/60 py-12">
       <div className="max-w-7xl mx-auto px-6">
         <div className="flex flex-col md:flex-row items-center justify-between gap-6 mb-8">
-          <div className="flex items-center gap-3">
-            <img src="/gc-logo-mark.webp" alt="German Capital" className="h-10 w-10 object-contain" />
-            <div>
-              <span className="text-white font-bold text-lg tracking-wide leading-none block">
-                German <span className="text-[#c9a84c]">Capital</span>
-              </span>
-              <span className="text-[#c9a84c] text-[10px] tracking-[0.2em] uppercase leading-none">
-                International Investments
-              </span>
-            </div>
+          <div className="flex items-center">
+            <img
+              src={logoHorizontal}
+              alt="German Capital"
+              className="h-32 w-auto object-contain"
+            />
           </div>
 
           <p className="text-sm text-center md:text-right max-w-sm">

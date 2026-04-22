@@ -1,6 +1,10 @@
+import agriculturalImage from '../assets/agricultural.webp';
+import constructionMachineryImage from '../assets/construction-machinery.webp';
+import trucksImage from '../assets/trucks.webp';
+
 const solutions = [
   {
-    image: '/agricultural.webp',
+    image: agriculturalImage,
     title: 'Máquinas Agrícolas',
     investment: 'A partir de R$ 180.000',
     usage: 'Arrendamento para cooperativas e fazendas',
@@ -8,7 +12,7 @@ const solutions = [
     icon: '🌾',
   },
   {
-    image: '/construction-machinery.webp',
+    image: constructionMachineryImage,
     title: 'Construção Civil',
     investment: 'A partir de R$ 150.000',
     usage: 'Locação para construtoras e prefeituras',
@@ -16,7 +20,7 @@ const solutions = [
     icon: '🏗️',
   },
   {
-    image: '/trucks.webp',
+    image: trucksImage,
     title: 'Caminhões',
     investment: 'A partir de R$ 200.000',
     usage: 'Locação para transportadoras e agro',

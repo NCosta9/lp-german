@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import logoHorizontal from '../assets/logo/logo-horizontal.png';
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -23,16 +24,12 @@ export default function Navbar() {
       }`}
     >
       <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          <img src="/gc-logo-mark.webp" alt="German Capital" className="h-9 w-9 object-contain" />
-          <div>
-            <span className="text-white font-bold text-lg tracking-wide leading-none block">
-              German <span className="text-[#c9a84c]">Capital</span>
-            </span>
-            <span className="text-[#c9a84c] text-[10px] tracking-[0.2em] uppercase leading-none">
-              International Investments
-            </span>
-          </div>
+        <div className="flex items-center">
+          <img
+            src={logoHorizontal}
+            alt="German Capital"
+            className="h-28 w-auto object-contain"
+          />
         </div>
 
         <div className="hidden md:flex items-center gap-8">

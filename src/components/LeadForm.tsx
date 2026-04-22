@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import logoHorizontal from '../assets/logo/logo-horizontal.png';
 
-const WEBHOOK_URL = 'https://n8n.germancapital.com/webhook/german-capital-lp';
+const WEBHOOK_URL = 'https://n8n.promovaonline.com.br/webhook/leads-rd-german';
 
 interface FormData {
   name: string;
@@ -47,12 +49,12 @@ const steps = [
 ];
 
 export default function LeadForm() {
+  const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(0);
   const [formData, setFormData] = useState<FormData>({
     name: '', whatsapp: '', email: '', country: '',
     machineType: '', investmentRange: '', monthlyPayment: '',
   });
-  const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
@@ -67,6 +69,7 @@ export default function LeadForm() {
 
   const handleNext = () => {
     if (!currentStepData) return;
+    if (loading) return;
     const field = currentStepData.field;
     if (!formData[field]) {
       setError('Por favor, preencha este campo para continuar.');
@@ -82,32 +85,40 @@ export default function LeadForm() {
     setTimeout(() => {
       if (currentStep < steps.length) {
         setCurrentStep((s) => s + 1);
-      } else {
-        handleSubmit(value);
       }
     }, 300);
   };
 
   const handleSubmit = async (lastValue?: string) => {
+    setError('');
     const payload = {
       ...formData,
       ...(lastValue ? { [currentStepData.field]: lastValue } : {}),
       origem: 'german-capital-lp',
       ...getUTMParams(),
+      site_url: window.location.href,
+      page_url: window.location.href,
+      page_origin: window.location.origin,
+      page_path: window.location.pathname,
+      referrer: document.referrer || '',
+      user_agent: navigator.userAgent,
+      language: navigator.language,
       timestamp: new Date().toISOString(),
     };
 
     setLoading(true);
     try {
-      await fetch(WEBHOOK_URL, {
+      const res = await fetch(WEBHOOK_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        mode: 'no-cors',
         body: JSON.stringify(payload),
       });
-      setSubmitted(true);
+      if (!res.ok) {
+        throw new Error(`Webhook error: ${res.status}`);
+      }
+      navigate('/obrigado', { replace: true });
     } catch {
-      setSubmitted(true);
+      setError('Não foi possível enviar seus dados agora. Tente novamente em alguns instantes.');
     } finally {
       setLoading(false);
     }
@@ -119,37 +130,15 @@ export default function LeadForm() {
 
   const progress = ((currentStep) / steps.length) * 100;
 
-  if (submitted) {
-    return (
-      <section id="lead-form" className="py-20 bg-neutral-50">
-        <div className="max-w-2xl mx-auto px-6">
-          <div
-            data-aos="zoom-in"
-            className="bg-white rounded-3xl shadow-2xl p-10 text-center border border-gray-100"
-          >
-            <div className="w-20 h-20 rounded-full gold-bg-gradient flex items-center justify-center mx-auto mb-6 shadow-lg">
-              <svg className="w-10 h-10 text-[#0f2d1e]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
-              </svg>
-            </div>
-            <h3 className="text-2xl md:text-3xl font-bold text-[#0f2d1e] mb-3">
-              Recebemos suas informações!
-            </h3>
-            <p className="text-gray-500 text-lg mb-6">
-              Um especialista da <strong className="text-[#1a4731]">German Capital</strong> entrará em contato em breve para apresentar as melhores opções para o seu perfil.
-            </p>
-            <div className="bg-[#1a4731]/5 rounded-2xl p-4 text-sm text-[#1a4731] font-medium">
-              Verifique seu WhatsApp e e-mail. Nosso time entra em contato normalmente em até 24 horas.
-            </div>
-          </div>
-        </div>
-      </section>
-    );
-  }
-
   return (
     <section id="lead-form" className="py-20 bg-neutral-50">
       <div className="max-w-2xl mx-auto px-6">
+        <img
+          src={logoHorizontal}
+          alt="German Capital"
+          className="h-28 w-auto object-contain mx-auto mb-10"
+          data-aos="fade-up"
+        />
         <div className="text-center mb-10" data-aos="fade-up">
           <span className="text-[#c9a84c] text-sm font-bold tracking-widest uppercase mb-3 block">
             Simulação Gratuita
@@ -195,11 +184,13 @@ export default function LeadForm() {
                 <p className="text-gray-500 mb-8">
                   Em menos de 2 minutos, nossos especialistas vão montar uma proposta personalizada para você.
                 </p>
+                {error && <p className="text-red-400 text-sm mb-5">{error}</p>}
                 <button
                   onClick={() => setCurrentStep(1)}
-                  className="gold-bg-gradient text-[#0f2d1e] font-bold px-10 py-4 rounded-full text-base hover:opacity-90 active:scale-95 transition-all duration-200 shadow-lg cursor-pointer"
+                  disabled={loading}
+                  className="gold-bg-gradient text-[#0f2d1e] font-bold px-10 py-4 rounded-full text-base hover:opacity-90 active:scale-95 transition-all duration-200 shadow-lg disabled:opacity-70 cursor-pointer"
                 >
-                  Iniciar Simulação Gratuita
+                  {loading ? 'Enviando...' : 'Iniciar Simulação Gratuita'}
                 </button>
               </div>
             )}
@@ -227,7 +218,8 @@ export default function LeadForm() {
                     {error && <p className="text-red-400 text-sm mt-2">{error}</p>}
                     <button
                       onClick={handleNext}
-                      className="mt-5 gold-bg-gradient text-[#0f2d1e] font-bold px-8 py-3.5 rounded-xl hover:opacity-90 active:scale-95 transition-all duration-200 cursor-pointer"
+                      disabled={loading}
+                      className="mt-5 gold-bg-gradient text-[#0f2d1e] font-bold px-8 py-3.5 rounded-xl hover:opacity-90 active:scale-95 transition-all duration-200 disabled:opacity-70 cursor-pointer"
                     >
                       Continuar →
                     </button>
@@ -255,7 +247,8 @@ export default function LeadForm() {
                     {error && <p className="text-red-400 text-sm mt-2">{error}</p>}
                     <button
                       onClick={handleNext}
-                      className="mt-5 gold-bg-gradient text-[#0f2d1e] font-bold px-8 py-3.5 rounded-xl hover:opacity-90 active:scale-95 transition-all duration-200 cursor-pointer"
+                      disabled={loading}
+                      className="mt-5 gold-bg-gradient text-[#0f2d1e] font-bold px-8 py-3.5 rounded-xl hover:opacity-90 active:scale-95 transition-all duration-200 disabled:opacity-70 cursor-pointer"
                     >
                       Continuar →
                     </button>
@@ -287,7 +280,7 @@ export default function LeadForm() {
               </div>
             )}
 
-            {currentStep === steps.length && !submitted && (
+            {currentStep === steps.length && (
               <div className="py-4 text-center">
                 <div className="text-5xl mb-4">🎯</div>
                 <h3 className="text-xl font-bold text-[#0f2d1e] mb-3">
@@ -296,9 +289,10 @@ export default function LeadForm() {
                 <p className="text-gray-500 mb-6">
                   Clique abaixo para receber sua simulação personalizada.
                 </p>
+                {error && <p className="text-red-400 text-sm mb-5">{error}</p>}
                 <button
                   onClick={() => handleSubmit()}
-                  disabled={loading}
+                  disabled={loading || !formData.monthlyPayment}
                   className="gold-bg-gradient text-[#0f2d1e] font-bold px-10 py-4 rounded-full text-base hover:opacity-90 active:scale-95 transition-all duration-200 shadow-lg disabled:opacity-70 cursor-pointer"
                 >
                   {loading ? 'Enviando...' : 'Receber Minha Simulação'}

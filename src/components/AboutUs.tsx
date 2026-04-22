@@ -1,3 +1,5 @@
+import teamPhoto from '../assets/foto-equipe.JPEG';
+
 const highlights = [
   { label: 'Atendimento Internacional', icon: '🌎' },
   { label: 'Suporte do Início ao Fim', icon: '🤝' },
@@ -26,18 +28,53 @@ export default function AboutUs() {
             <p className="text-white/75 text-lg leading-relaxed">
               Além de ajudar na compra, nossa equipe oferece todo o suporte para colocar o equipamento em operação através de empresas parceiras e prefeituras, permitindo que o cliente acompanhe seu investimento mesmo morando no exterior.
             </p>
+
+            <div className="mt-10 space-y-6">
+              <img
+                src={teamPhoto}
+                alt="Equipe German Capital"
+                className="w-full h-56 md:h-64 rounded-3xl object-cover object-center border border-white/10 shadow-2xl lg:hidden"
+                data-aos="fade-up"
+              />
+
+              <div
+                data-aos="fade-up"
+                data-aos-delay="150"
+                className="bg-white/8 backdrop-blur-sm border border-white/15 rounded-2xl p-6"
+              >
+                <div className="flex items-start gap-4">
+                  <div className="w-11 h-11 rounded-full gold-bg-gradient flex items-center justify-center flex-shrink-0">
+                    <svg className="w-5 h-5 text-[#0f2d1e]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h4 className="text-[#c9a84c] font-bold text-base mb-1">Nossa Missão</h4>
+                    <p className="text-white/70 text-sm leading-relaxed">
+                      Ser a ponte entre brasileiros no exterior e oportunidades reais de renda no Brasil, com segurança e transparência em cada operação.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
 
           <div data-aos="fade-left" className="space-y-4">
+            <img
+              src={teamPhoto}
+              alt="Equipe German Capital"
+              className="hidden w-full h-64 rounded-3xl object-cover object-center border border-white/10 shadow-2xl lg:block"
+              data-aos="fade-left"
+            />
             {highlights.map((item, i) => (
               <div
                 key={i}
                 data-aos="fade-left"
                 data-aos-delay={i * 100}
-                className="flex items-center gap-5 bg-white/8 backdrop-blur-sm border border-white/15 rounded-2xl px-6 py-5 hover:border-[#c9a84c]/50 transition-colors duration-300"
+                className="flex items-center gap-4 bg-white/6 backdrop-blur-sm border border-white/12 rounded-2xl px-5 py-4 hover:border-[#c9a84c]/50 transition-colors duration-300"
               >
-                <span className="text-3xl">{item.icon}</span>
-                <span className="text-white font-semibold text-lg">{item.label}</span>
+                <span className="text-2xl">{item.icon}</span>
+                <span className="text-white/90 font-semibold text-sm md:text-base">{item.label}</span>
                 <svg
                   className="w-5 h-5 text-[#c9a84c] ml-auto flex-shrink-0"
                   fill="none"
@@ -48,26 +85,6 @@ export default function AboutUs() {
                 </svg>
               </div>
             ))}
-
-            <div
-              data-aos="fade-up"
-              data-aos-delay="400"
-              className="mt-8 bg-[#c9a84c]/15 border border-[#c9a84c]/30 rounded-2xl p-6"
-            >
-              <div className="flex items-start gap-4">
-                <div className="w-12 h-12 rounded-full gold-bg-gradient flex items-center justify-center flex-shrink-0">
-                  <svg className="w-6 h-6 text-[#0f2d1e]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                  </svg>
-                </div>
-                <div>
-                  <h4 className="text-[#c9a84c] font-bold text-lg mb-1">Nossa Missão</h4>
-                  <p className="text-white/70 text-sm leading-relaxed">
-                    Ser a ponte entre brasileiros no exterior e oportunidades reais de renda no Brasil, com segurança e transparência em cada operação.
-                  </p>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </div>
