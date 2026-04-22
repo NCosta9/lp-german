@@ -11,6 +11,7 @@ interface FormData {
   email: string;
   country: string;
   machineType: string;
+  brand: string;
   investmentRange: string;
   monthlyPayment: string;
 }
@@ -29,7 +30,7 @@ const steps = [
   { id: 1, question: 'Qual é o seu nome?', field: 'name' as keyof FormData, type: 'text', placeholder: 'Seu nome completo' },
   { id: 2, question: 'Qual o seu WhatsApp?', field: 'whatsapp' as keyof FormData, type: 'tel', placeholder: '+1 (555) 000-0000' },
   { id: 3, question: 'Qual o seu e-mail?', field: 'email' as keyof FormData, type: 'email', placeholder: 'seu@email.com' },
-  { id: 4, question: 'Em qual país você mora?', field: 'country' as keyof FormData, type: 'select', options: [
+  { id: 4, question: 'Em qual país você mora?', field: 'country' as keyof FormData, type: 'select', placeholder: 'Selecione seu país...', options: [
     'Estados Unidos', 'Portugal', 'Alemanha', 'Reino Unido', 'Itália', 'Espanha', 'França', 'Suíça', 'Outros'
   ]},
   { id: 5, question: 'O que deseja investir?', field: 'machineType' as keyof FormData, type: 'cards', options: [
@@ -37,12 +38,16 @@ const steps = [
     { value: 'construcao', label: 'Construção Civil', icon: '🏗️' },
     { value: 'caminhao', label: 'Caminhão', icon: '🚛' },
   ]},
-  { id: 6, question: 'Quanto pretende investir?', field: 'investmentRange' as keyof FormData, type: 'cards', options: [
+  { id: 6, question: 'Qual marca do maquinário/caminhão você procura?', field: 'brand' as keyof FormData, type: 'select', placeholder: 'Selecione a marca...', options: [
+    'Caterpillar', 'John Deere', 'Case IH', 'New Holland', 'Komatsu', 'Volvo', 'JCB', 'Bobcat',
+    'Scania', 'Volvo Trucks', 'Mercedes-Benz', 'MAN', 'Iveco', 'DAF', 'Outros'
+  ]},
+  { id: 7, question: 'Quanto pretende investir?', field: 'investmentRange' as keyof FormData, type: 'cards', options: [
     { value: '150k-300k', label: 'R$ 150k – R$ 300k', icon: '💼' },
     { value: '300k-600k', label: 'R$ 300k – R$ 600k', icon: '📈' },
     { value: '600k+', label: 'Acima de R$ 600k', icon: '🏆' },
   ]},
-  { id: 7, question: 'Quanto gostaria de pagar por mês?', field: 'monthlyPayment' as keyof FormData, type: 'cards', options: [
+  { id: 8, question: 'Quanto gostaria de pagar por mês?', field: 'monthlyPayment' as keyof FormData, type: 'cards', options: [
     { value: 'ate-5k', label: 'Até R$ 5.000', icon: '💰' },
     { value: '5k-15k', label: 'R$ 5k – R$ 15k', icon: '💵' },
     { value: '15k+', label: 'Acima de R$ 15k', icon: '🏦' },
@@ -54,7 +59,7 @@ export default function LeadForm() {
   const [currentStep, setCurrentStep] = useState(0);
   const [formData, setFormData] = useState<FormData>({
     name: '', whatsapp: '', email: '', country: '',
-    machineType: '', investmentRange: '', monthlyPayment: '',
+    machineType: '', brand: '', investmentRange: '', monthlyPayment: '',
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -250,7 +255,7 @@ export default function LeadForm() {
                       }}
                       className="w-full border-2 border-gray-200 rounded-xl px-4 py-4 text-[#0f2d1e] text-base focus:outline-none focus:border-[#1a4731] transition-colors duration-200 bg-white appearance-none cursor-pointer"
                     >
-                      <option value="">Selecione seu país...</option>
+                      <option value="">{currentStepData.placeholder || 'Selecione uma opção...'}</option>
                       {currentStepData.options?.map((opt) => (
                         typeof opt === 'string' ? (
                           <option key={opt} value={opt}>{opt}</option>

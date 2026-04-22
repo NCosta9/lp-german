@@ -5,6 +5,12 @@ import logoHorizontal from '../assets/logo/logo-horizontal.png';
 export default function ThankYou() {
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+    const w = window as Window & { dataLayer?: Array<Record<string, unknown>> };
+    w.dataLayer = w.dataLayer || [];
+    w.dataLayer.push({
+      event: 'lead_thankyou_view',
+      page: 'obrigado',
+    });
   }, []);
 
   return (
