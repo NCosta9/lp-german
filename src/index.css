@@ -1,0 +1,83 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #1a4731;
+  --color-primary-dark: #0f2d1e;
+  --color-primary-light: #2d6b4a;
+  --color-gold: #c9a84c;
+  --color-gold-light: #e2c47a;
+  --color-gold-dark: #a8853a;
+  --color-neutral-50: #fafaf9;
+  --color-neutral-100: #f5f5f4;
+  --color-neutral-200: #e7e5e4;
+  --color-neutral-800: #292524;
+  --color-neutral-900: #1c1917;
+
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+
+  --animate-fade-up: fade-up 0.6s ease-out forwards;
+  --animate-fade-in: fade-in 0.8s ease-out forwards;
+}
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.gold-gradient {
+  background: linear-gradient(135deg, #c9a84c 0%, #e2c47a 50%, #c9a84c 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gold-bg-gradient {
+  background: linear-gradient(135deg, #c9a84c 0%, #e2c47a 50%, #a8853a 100%);
+}
+
+.green-gradient {
+  background: linear-gradient(135deg, #0f2d1e 0%, #1a4731 60%, #2d6b4a 100%);
+}
+
+.hero-overlay {
+  background: linear-gradient(
+    to right,
+    rgba(15, 45, 30, 0.92) 0%,
+    rgba(15, 45, 30, 0.75) 50%,
+    rgba(15, 45, 30, 0.3) 100%
+  );
+}
+
+.card-hover {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+.gold-border-bottom {
+  border-bottom: 3px solid #c9a84c;
+}
+
+[data-aos] {
+  pointer-events: none;
+}
+[data-aos].aos-animate {
+  pointer-events: auto;
+}
